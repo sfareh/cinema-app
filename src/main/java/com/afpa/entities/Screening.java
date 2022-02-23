@@ -23,7 +23,7 @@ public class Screening {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date start_time;

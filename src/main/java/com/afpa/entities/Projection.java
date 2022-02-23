@@ -24,7 +24,7 @@ public class Projection {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private Date projectionDate;
 	private double price;
 

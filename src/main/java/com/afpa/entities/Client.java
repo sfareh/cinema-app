@@ -22,7 +22,7 @@ public class Client {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String firstname;
 	private String lastname;
 	private String email;

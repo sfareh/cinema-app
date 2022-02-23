@@ -23,7 +23,7 @@ public class Cinema {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	private String name;
 	private double longitude, latitude, altitude;
 	private int numberOfRooms;
