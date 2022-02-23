@@ -1,4 +1,4 @@
-package com.afpa.dao;
+package com.afpa.entities;
 
 import java.util.Collection;
 
@@ -14,18 +14,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString 
-public class Cinema {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class Room {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	private String name;
-	private double longitude, latitude, altitude;
-	private int numberOfRooms;
-	@OneToMany(mappedBy="rooms")
-	private Collection<Room> rooms;
+	private int numberOfSeats;
+
 	@ManyToOne
-	private City city;
+	private Cinema cinema;
+
+	@OneToMany(mappedBy = "room")
+	private Collection<Seat> seat;
+
+	@OneToMany(mappedBy = "room")
+	private Collection<Projection> projection;
 }
