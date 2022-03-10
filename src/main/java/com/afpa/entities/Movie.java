@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,13 +33,17 @@ public class Movie {
 	private String name;
 	private String synopsis;
 	private String film_maker;
+	
+	@Temporal(TemporalType.DATE)
 	private Date release_date;
-	private Date length;
+	
+	private double length;
 	private String poster;
 
 	@ManyToOne
 	private Category category;
 
 	@OneToMany(mappedBy = "movie")
+	@JsonProperty(access= Access.WRITE_ONLY)
 	private Collection<Projection> projection;
 }

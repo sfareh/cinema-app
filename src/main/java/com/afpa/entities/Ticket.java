@@ -24,9 +24,11 @@ public class Ticket {
 	private Long id;
 	private String name;
 	private double price;
-	@Column(unique=true)
-	private int payment_id;
 	private boolean reserved;
+	
+	@Column(unique=true, nullable=true)
+	private Integer payment_id;
+	
 	
 	@ManyToOne
 	private Seat seat;

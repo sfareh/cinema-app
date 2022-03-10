@@ -85,7 +85,7 @@ public class CinemaInitImplement implements CinemaInitService {
 				Cinema cinema = new Cinema();
 				cinema.setCity(v);
 				cinema.setName(c);
-				cinema.setNumberOfRooms(3 + new Random().nextInt(6));
+				cinema.setNumberOfRooms(3 + new Random().nextInt(3));
 				cinemaRepository.save(cinema);
 			});
 		});
@@ -124,7 +124,7 @@ public class CinemaInitImplement implements CinemaInitService {
 			movie.setName(m);
 			movie.setCategory(categories.get(new Random().nextInt(categories.size())));
 			movie.setLength(time[new Random().nextInt(time.length)]);
-			movie.setPoster(m.toLowerCase().replaceAll(" ", ""));
+			movie.setPoster(m.toLowerCase().replaceAll(" ", "") + ".jpeg");
 			movie.setFilm_maker("Marvel");
 			movieRepository.save(movie);
 		});
@@ -161,7 +161,7 @@ public class CinemaInitImplement implements CinemaInitService {
 			for (int i = 0; i < c.getNumberOfRooms(); i++) {
 				Room room = new Room();
 				room.setCinema(c);
-				room.setNumberOfSeats(20 + new Random().nextInt(30));
+				room.setNumberOfSeats(20 + new Random().nextInt(10));
 				room.setName("Room " + (i + 1));
 
 				roomRepository.save(room);
@@ -210,7 +210,6 @@ public class CinemaInitImplement implements CinemaInitService {
 				ticket.setSeat(s);
 				ticket.setProjection(p);
 				ticket.setReserved(false);
-
 				ticketRepository.save(ticket);
 			});
 		});
