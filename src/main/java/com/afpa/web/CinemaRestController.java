@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.afpa.dao.MovieRepository;
+import com.afpa.dao.TicketRepository;
 import com.afpa.entities.Movie;
 import com.afpa.entities.Ticket;
 
@@ -27,6 +30,8 @@ public class CinemaRestController {
 	
 	@Autowired
 	MovieRepository movieRepository;
+	@Autowired
+	TicketRepository ticketRepository;
 	
 	@GetMapping(path="/poster/{id}", produces=MediaType.IMAGE_JPEG_VALUE)
 	public byte[] image(@PathVariable(name="id") Long id) throws IOException {
@@ -41,17 +46,26 @@ public class CinemaRestController {
 		return Files.readAllBytes(path);
 	}
 	
-	@PostMapping("/payedTickets/{id}")
+	@PostMapping("/payedTickets")
+	@Transactional
 	public List<Ticket> payedTickets(@RequestBody TicketIdList ticketIdList) {
-		 List<Ticket> ticket = new ArrayList<>();
+		 List<Ticket> ticketList = new ArrayList<Ticket>();
+		 
+		 ticketIdList.getTickets().forEach(id -> {
+			 Ticket ticket = ticketRepository.findById(id).get();
+			 ticket.setClientName(ticketIdList.getName());
+			 ticket.setReserved(true);
+			 ticketRepository.save(ticket);
+			 ticketList.add(ticket);
+		 });
 		
-		return ticket;
+		return ticketList;
 	}
 }
 
 //getters - setters
 @Data
 class TicketIdList{
-	private String clientName;
+	private String name;
 	private List<Long> tickets = new ArrayList<>();
 }

@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,19 +25,18 @@ public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
 	private double price;
+	private String clientName;
 	private boolean reserved;
-	
-	@Column(unique=true, nullable=true)
-	private Integer payment_id;
-	
-	
-	@ManyToOne
-	private Seat seat;
 	
 	@ManyToOne
 	private Client client;
+	
+	@Column(unique=false, nullable=true)
+	private Integer payment_id;
+
+	@ManyToOne
+	private Seat seat;
 	
 	@ManyToOne
 	private Projection projection;

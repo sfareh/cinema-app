@@ -29,6 +29,6 @@ public class CinemaAfpaApplication implements CommandLineRunner {
 		cinemaInitservice.initMovies();
 		cinemaInitservice.initProjections();
 		cinemaInitservice.initClients();
-		//cinemaInitservice.initTickets();
+		cinemaInitservice.initTickets();
 	}
 }
